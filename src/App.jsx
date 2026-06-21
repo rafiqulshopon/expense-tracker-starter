@@ -93,8 +93,17 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+      <header className="masthead">
+        <div className="masthead-brand">
+          <span className="masthead-mark" aria-hidden="true">
+            $
+          </span>
+          <h1 className="masthead-title">Finance Tracker</h1>
+        </div>
+        <div className="masthead-meta">
+          <span className="masthead-count">{transactions.length} entries</span>
+        </div>
+      </header>
 
       <Summary transactions={transactions} />
 
@@ -107,6 +116,10 @@ function App() {
         categories={categories}
         onDelete={handleDelete}
       />
+
+      <footer className="app-footer">
+        Stored in memory — resets when you reload.
+      </footer>
     </div>
   );
 }

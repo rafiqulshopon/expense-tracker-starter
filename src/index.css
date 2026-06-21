@@ -1,11 +1,81 @@
+:root {
+  --paper: #f3f5f4;
+  --surface: #ffffff;
+  --ink: #16191c;
+  --ink-soft: #3a4148;
+  --ink-muted: #6b7480;
+  --rule: #e3e6e3;
+  --rule-soft: #edeeec;
+  --debit: #b23a2b;
+  --debit-soft: #f6e7e4;
+  --credit: #1f7a4d;
+  --credit-soft: #e4f0e9;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --font-sans: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
+  font-family: var(--font-sans);
+  background-color: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Every monetary figure in the app is set in tabular monospace. */
+.hero-balance,
+.hero-stat-value,
+.masthead-count,
+.amount,
+.cat-pill,
+.recharts-wrapper {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

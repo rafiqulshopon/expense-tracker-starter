@@ -26,8 +26,11 @@ function TransactionForm({ categories, onAdd }) {
   };
 
   return (
-    <div className="add-transaction">
-      <h2>Add Transaction</h2>
+    <section className="add-transaction">
+      <div className="panel-head">
+        <h2 className="panel-title">Add transaction</h2>
+        <span className="panel-kicker">new entry</span>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -37,6 +40,7 @@ function TransactionForm({ categories, onAdd }) {
         />
         <input
           type="number"
+          inputMode="decimal"
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
@@ -50,9 +54,9 @@ function TransactionForm({ categories, onAdd }) {
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
-        <button type="submit">Add</button>
+        <button type="submit" className="add-btn">Add transaction</button>
       </form>
-    </div>
+    </section>
   );
 }
 
