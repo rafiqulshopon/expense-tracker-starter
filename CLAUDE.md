@@ -27,9 +27,9 @@ The entire app is a **single React component** — there is no routing, state li
   - New transactions get `id: Date.now()` and today's ISO date; state is in-memory only — **everything resets on page reload** (no `localStorage`, no API).
 - [src/App.css](src/App.css) / [src/index.css](src/index.css) — plain CSS, no preprocessor or CSS modules.
 
-## Known intentional bug
+## Totals bug (fixed)
 
-The `amount` field is stored and accumulated as a **string**, so the totals `reduce` in [App.jsx](src/App.jsx) concatenates instead of adding (e.g. income renders as `$05000`). This is the bug the course walks through fixing — leave it unless asked otherwise.
+The `amount` field is stored as a **string**, so the totals `reduce` in [App.jsx](src/App.jsx) must coerce it — `sum + Number(t.amount)` — to add numerically instead of concatenating. The original starter concatenated (`sum + t.amount`), which produced garbage like `$05000`; this has been corrected. If you refactor the amount handling, keep the numeric coercion at the reduce (or convert amounts to numbers at storage time).
 
 ## Lint note
 
