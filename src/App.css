@@ -261,6 +261,34 @@
   box-shadow: 0 0 0 3px rgba(22, 25, 28, 0.08);
 }
 
+.add-transaction input.is-invalid,
+.add-transaction select.is-invalid {
+  border-color: var(--debit);
+  background: var(--debit-soft);
+}
+
+.add-transaction input.is-invalid:focus,
+.add-transaction select.is-invalid:focus {
+  border-color: var(--debit);
+  box-shadow: 0 0 0 3px rgba(178, 58, 43, 0.12);
+}
+
+.form-errors {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-errors li {
+  color: var(--debit);
+  font-size: 13px;
+  font-weight: 500;
+}
+
 .add-transaction input::placeholder {
   color: var(--ink-muted);
 }

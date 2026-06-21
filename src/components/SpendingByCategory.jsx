@@ -10,10 +10,22 @@ import {
 } from "recharts";
 import { formatMoney } from "../utils/format";
 
-const DEBIT = "#b23a2b";
-const INK = "#16191c";
-const INK_MUTED = "#6b7480";
-const RULE = "#e3e6e3";
+// Palette source of truth is the CSS custom properties in src/index.css.
+// SVG fill/stroke attributes can't consume var(), so resolve the tokens to
+// concrete values here once at module load — this way rebranding the CSS
+// tokens updates the chart too, instead of leaving it on stale hexes.
+function tokenColor(name, fallback) {
+  if (typeof document === "undefined") return fallback;
+  return (
+    getComputedStyle(document.documentElement).getPropertyValue(name).trim() ||
+    fallback
+  );
+}
+
+const DEBIT = tokenColor("--debit", "#b23a2b");
+const INK = tokenColor("--ink", "#16191c");
+const INK_MUTED = tokenColor("--ink-muted", "#6b7480");
+const RULE = tokenColor("--rule", "#e3e6e3");
 
 function sumExpensesByCategory(transactions) {
   return transactions

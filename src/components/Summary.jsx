@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { formatMoney } from "../utils/format";
 
 function useCountUp(target, duration = 800) {
@@ -36,13 +36,22 @@ function useCountUp(target, duration = 800) {
 }
 
 function Summary({ transactions }) {
-  const totalIncome = transactions
-    .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + Number(t.amount), 0);
-
-  const totalExpenses = transactions
-    .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + Number(t.amount), 0);
+  // Derive both totals in a single memoized pass. useCountUp re-renders ~48x
+  // during the balance animation, but these only depend on `transactions`,
+  // so memoizing skips the reduce on every animation tick. Keeps the numeric
+  // coercion (`Number(t.amount)`) per the intentional string-amount design.
+  const { totalIncome, totalExpenses } = useMemo(
+    () =>
+      transactions.reduce(
+        (acc, t) => {
+          if (t.type === "income") acc.totalIncome += Number(t.amount);
+          else if (t.type === "expense") acc.totalExpenses += Number(t.amount);
+          return acc;
+        },
+        { totalIncome: 0, totalExpenses: 0 }
+      ),
+    [transactions]
+  );
 
   const balance = totalIncome - totalExpenses;
   const positive = balance >= 0;
